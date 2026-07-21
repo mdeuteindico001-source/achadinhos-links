@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Achadinhos — promoções da Shopee todo dia</title>
+<meta name="description" content="Entre no canal e receba as melhores promoções da Shopee todos os dias, antes de acabar.">
+<meta property="og:title" content="Achadinhos — promoções da Shopee todo dia">
+<meta property="og:description" content="Receba as melhores ofertas com cupom, todo dia, de graça.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+
+<!-- ============================================================
+     CONFIGURAÇÃO — é só aqui que você mexe no dia a dia.
+     Quando um grupo lotar (1.024), marque cheio: true.
+     A página passa a oferecer o próximo automaticamente.
+     ============================================================ -->
+<script>
+const CONFIG = {
+  // Canal do WhatsApp — destino principal (não tem limite de membros)
+  canal: {
+    link: 'https://whatsapp.com/channel/COLE_O_CODIGO_AQUI',
+    ativo: false   // troque para true depois de colar o link do canal
+  },
+
+  // Grupos — o primeiro com "cheio: false" é o que aparece na página
+  grupos: [
+    { nome: 'Achadinhos • Grupo 1', link: 'https://chat.whatsapp.com/COLE_AQUI', cheio: false },
+    // { nome: 'Achadinhos • Grupo 2', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
+  ],
+
+  // Prova social exibida na página (deixe '' para esconder)
+  membros: '',          // ex.: '2.400'
+
+  // ID do Pixel da Meta (deixe '' se ainda não tiver)
+  pixelId: ''
+};
+</script>
+
+<style>
+  :root {
+    --zap: #1FA855;
+    --preco: #D92B4B;
+    --tinta: #14181D;
+    --suave: #667085;
+    --fundo: #F4F6F8;
+    --papel: #FFFFFF;
+    --borda: #E3E7EC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --tinta:#EDEFF2; --suave:#98A2B3; --fundo:#0F1317; --papel:#181D23; --borda:#272E37; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fundo); color: var(--tinta);
+    min-height: 100dvh; display: flex; align-items: center; justify-content: center;
+    padding: 24px 18px calc(24px + env(safe-area-inset-bottom));
+    line-height: 1.5;
+  }
+  .cartao {
+    background: var(--papel); width: 100%; max-width: 420px;
+    border: 1px solid var(--borda); border-radius: 18px;
+    padding: 30px 24px 26px; text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,.07);
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .selo {
+    align-self: center; background: var(--preco); color: #fff;
+    font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px;
+  }
+  h1 { font-size: 1.65rem; line-height: 1.2; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--preco); }
+  .sub { color: var(--suave); font-size: 1rem; text-wrap: balance; }
+  .lista { text-align: left; display: flex; flex-direction: column; gap: 9px; margin: 2px 0; }
+  .item { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
+  .item span:first-child { flex-shrink: 0; }
+  .acoes { display: flex; flex-direction: column; gap: 10px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 17px 18px; border-radius: 13px; text-decoration: none;
+    font-size: 1.06rem; font-weight: 800; border: 2px solid transparent;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn:active { transform: scale(.975); }
+  .btn-zap { background: var(--zap); color: #fff; box-shadow: 0 5px 18px rgba(31,168,85,.32); }
+  .btn-zap:hover { filter: brightness(1.06); }
+  .btn-sec { background: transparent; color: var(--tinta); border-color: var(--borda); font-size: .98rem; padding: 14px; }
+  .btn-sec:hover { border-color: var(--zap); color: var(--zap); }
+  .prova { font-size: .87rem; color: var(--suave); }
+  .prova b { color: var(--tinta); }
+  .rodape { font-size: .76rem; color: var(--suave); border-top: 1px solid var(--borda); padding-top: 14px; }
+  .esgotado { font-size: .9rem; color: var(--suave); background: var(--fundo); border-radius: 10px; padding: 14px; }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+  <main class="cartao">
+    <span class="selo">🏷️ Achadinhos</span>
+    <h1>As melhores promoções da Shopee, <em>antes de acabar</em></h1>
+    <p class="sub">Todo dia eu garimpo e mando só o que vale a pena — com cupom e link direto.</p>
+
+    <div class="lista">
+      <div class="item"><span>🔥</span><span>Ofertas com desconto de verdade, não é preço inflado</span></div>
+      <div class="item"><span>⚡</span><span>Você recebe antes do estoque acabar</span></div>
+      <div class="item"><span>🆓</span><span>De graça, e você sai quando quiser</span></div>
+    </div>
+
+    <div class="acoes" id="acoes"></div>
+    <p class="prova" id="prova"></p>
+    <p class="rodape">Conteúdo gratuito. Podemos receber comissão de afiliado pelas compras — sem custo nenhum pra você.</p>
+  </main>
+
+<script>
+(function () {
+  // ---------- Pixel da Meta (só carrega se houver ID) ----------
+  if (CONFIG.pixelId) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.pixelId);
+    fbq('track', 'PageView');
+  }
+  var rastrear = function (evento) {
+    if (CONFIG.pixelId && window.fbq) fbq('track', evento);
+  };
+
+  // ---------- Monta os botões ----------
+  var acoes = document.getElementById('acoes');
+  var vaga = CONFIG.grupos.filter(function (g) { return !g.cheio && g.link.indexOf('COLE_AQUI') === -1; })[0];
+  var temCanal = CONFIG.canal.ativo && CONFIG.canal.link.indexOf('COLE_O_CODIGO_AQUI') === -1;
+  var html = '';
+
+  if (temCanal) {
+    html += '<a class="btn btn-zap" data-tipo="canal" href="' + CONFIG.canal.link + '">📢 Entrar no canal</a>';
+  }
+  if (vaga) {
+    html += '<a class="btn ' + (temCanal ? 'btn-sec' : 'btn-zap') + '" data-tipo="grupo" href="' + vaga.link + '">'
+         + (temCanal ? '👥 Prefiro o grupo com conversa' : '👥 Entrar no grupo') + '</a>';
+  }
+  if (!html) {
+    html = '<p class="esgotado">⏳ Estamos abrindo uma turma nova. Volte em alguns minutos!</p>';
+  }
+  acoes.innerHTML = html;
+
+  // ---------- Prova social ----------
+  if (CONFIG.membros) {
+    document.getElementById('prova').innerHTML = '👥 Já somos <b>' + CONFIG.membros + '</b> caçando promoção juntos';
+  }
+
+  // ---------- Eventos de clique ----------
+  acoes.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-tipo]');
+    if (a) rastrear('Lead');
+  });
+})();
+</script>
+</body>
+</html>
