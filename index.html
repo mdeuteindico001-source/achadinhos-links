@@ -11,6 +11,11 @@
 <meta name="theme-color" content="#DE1F1A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
 
+<!-- Fontes: Baloo 2 (display pesada arredondada) + Nunito (texto) — batem com a arte -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
 <!-- ============================================================
      CONFIGURAÇÃO — é só aqui que você mexe no dia a dia.
      Quando um grupo lotar (1.024), marque cheio: true.
@@ -49,12 +54,14 @@ const CONFIG = {
     --creme: #FFF6E8;
     --zap: #1FA855;
     --zap-fundo: #14713A;
-    --cinza: #6B6560;
+    --cinza: #4A443F;
+    --display: "Baloo 2", system-ui, sans-serif;
+    --texto: "Nunito", system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-family: var(--texto);
     background: var(--vermelho);
     min-height: 100dvh;
     display: flex; align-items: center; justify-content: center;
@@ -111,7 +118,7 @@ const CONFIG = {
     width: 52px; height: 52px; border-radius: 50%;
     background: var(--amarelo); color: var(--preto);
     display: grid; place-items: center;
-    font-size: 1.6rem; font-weight: 900;
+    font-family: var(--display); font-size: 1.7rem; font-weight: 800;
     border: 3px solid var(--preto);
     box-shadow: 0 4px 0 var(--preto);
     margin-bottom: 2px;
@@ -119,44 +126,43 @@ const CONFIG = {
   .placa {
     align-self: center;
     background: var(--preto); color: var(--branco);
-    font-size: clamp(1.15rem, 5.6vw, 1.5rem); font-weight: 900;
+    font-family: var(--display);
+    font-size: clamp(1.2rem, 5.8vw, 1.55rem); font-weight: 800;
     letter-spacing: .06em; text-transform: uppercase;
-    padding: 7px 20px; border-radius: 9px;
+    padding: 6px 20px 8px; border-radius: 9px;
     transform: rotate(-1.5deg);
   }
   .titulo-3d {
-    font-size: clamp(2.7rem, 13vw, 3.9rem); font-weight: 900;
-    letter-spacing: -.02em; text-transform: uppercase; line-height: .92;
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 13.5vw, 4.1rem); font-weight: 800;
+    letter-spacing: -.01em; text-transform: uppercase; line-height: .95;
     color: var(--amarelo);
     -webkit-text-stroke: 3px var(--preto);
     paint-order: stroke fill;
     text-shadow: 0 4px 0 var(--amarelo-fundo), 0 7px 0 var(--preto);
     transform: rotate(-1.5deg);
-    margin: 2px 0 6px;
+    margin: 2px 0 8px;
   }
   .faixa-sub {
     align-self: center;
     background: var(--preto); color: var(--branco);
-    font-size: .8rem; font-weight: 800; letter-spacing: .01em;
-    padding: 8px 16px; border-radius: 7px; text-wrap: balance;
+    font-size: .82rem; font-weight: 800; letter-spacing: .01em;
+    padding: 9px 16px; border-radius: 7px; text-wrap: balance;
   }
   .faixa-sub em { font-style: normal; color: var(--amarelo); }
 
   /* ---------- marketplaces ---------- */
   .lojas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
-  .loja { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .loja { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .loja .bolha {
-    width: 54px; height: 54px; border-radius: 50%;
-    display: grid; place-items: center; font-size: 1.45rem;
+    width: 56px; height: 56px; border-radius: 50%;
     border: 3px solid var(--preto); box-shadow: 0 3px 0 var(--preto);
+    overflow: hidden; background: var(--branco);
   }
-  .loja .bolha.a { background: var(--vermelho); }
-  .loja .bolha.b { background: var(--amarelo); }
-  .loja .bolha.c { background: var(--preto); }
-  .loja .bolha.d { background: var(--vermelho); }
+  .loja .bolha svg { width: 100%; height: 100%; display: block; }
   .loja small {
-    font-size: .6rem; font-weight: 900; text-transform: uppercase;
-    letter-spacing: .02em; line-height: 1.15; color: var(--preto);
+    font-size: .61rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: .01em; line-height: 1.15; color: var(--preto);
   }
 
   /* ---------- benefícios ---------- */
@@ -176,8 +182,9 @@ const CONFIG = {
   .acoes { display: flex; flex-direction: column; gap: 11px; margin-top: 6px; }
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 9px;
-    padding: 16px 16px; border-radius: 13px; text-decoration: none;
-    font-size: 1.05rem; font-weight: 900; text-transform: uppercase; letter-spacing: .01em;
+    padding: 15px 16px 17px; border-radius: 13px; text-decoration: none;
+    font-family: var(--display);
+    font-size: 1.15rem; font-weight: 800; text-transform: uppercase; letter-spacing: .02em;
     border: 3px solid var(--preto);
     transition: transform .1s ease, box-shadow .1s ease;
   }
@@ -187,15 +194,15 @@ const CONFIG = {
   .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 currentColor; }
   .btn:focus-visible { outline: 3px solid var(--vermelho); outline-offset: 3px; }
 
-  .prova { font-size: .82rem; font-weight: 700; color: var(--preto); }
+  .prova { font-size: .85rem; font-weight: 800; color: var(--preto); }
   .prova b { background: var(--amarelo); padding: 1px 6px; border-radius: 4px; }
   .esgotado {
     background: var(--creme); border: 3px dashed var(--preto); border-radius: 13px;
-    padding: 15px; font-size: .88rem; font-weight: 700;
+    padding: 15px; font-size: .9rem; font-weight: 800;
   }
   .rodape {
-    font-size: .68rem; color: var(--cinza); line-height: 1.45;
-    border-top: 2px solid #EFE9E2; padding-top: 12px; margin-top: 2px;
+    font-size: .84rem; font-weight: 600; color: var(--cinza); line-height: 1.5;
+    border-top: 2px solid #E4DED7; padding-top: 13px; margin-top: 2px;
   }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
@@ -216,10 +223,48 @@ const CONFIG = {
       <p class="faixa-sub">AS MELHORES <em>OFERTAS</em>, EM UM SÓ LUGAR!</p>
 
       <div class="lojas">
-        <div class="loja"><div class="bolha a">🛍️</div><small>Shopee</small></div>
-        <div class="loja"><div class="bolha b">🤝</div><small>Mercado Livre</small></div>
-        <div class="loja"><div class="bolha c">🎵</div><small>TikTok Shop</small></div>
-        <div class="loja"><div class="bolha d">🛒</div><small>E muito mais</small></div>
+        <div class="loja">
+          <div class="bolha">
+            <svg viewBox="0 0 48 48" role="img" aria-label="Shopee">
+              <rect width="48" height="48" fill="#EE4D2D"/>
+              <path d="M17.2 20.5v-2.2a6.8 6.8 0 0 1 13.6 0v2.2" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
+              <path d="M11.6 20.5h24.8l-1.9 15.1a3 3 0 0 1-3 2.6H16.5a3 3 0 0 1-3-2.6z" fill="#fff"/>
+              <path d="M27.4 26.6c-1-.8-2.2-1.2-3.5-1.2-1.9 0-3.3 1-3.3 2.5 0 1.3 1 2 2.9 2.6 2.3.7 3.9 1.6 3.9 3.6 0 1.9-1.7 3.2-4.1 3.2-1.6 0-3.1-.5-4.2-1.4" fill="none" stroke="#EE4D2D" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
+          </div><small>Shopee</small>
+        </div>
+        <div class="loja">
+          <div class="bolha">
+            <svg viewBox="0 0 48 48" role="img" aria-label="Mercado Livre">
+              <rect width="48" height="48" fill="#FFE600"/>
+              <path d="M9 26c3-1.5 5.2-3.8 7.4-5.6 2.6-2.1 5-2.1 7.6 0 2.2 1.8 4.4 4.1 7.4 5.6" fill="none" stroke="#2D3277" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16.5 24.8c1.6 1.4 3 2.6 4.3 3.6.9.7 1.7.6 2.4-.1" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M23.2 28.3c1.3 1 2.4 1.9 3.4 2.6.9.6 1.7.5 2.3-.2" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M28.9 30.7c1 .8 1.8 1.4 2.5 1.9.8.5 1.5.4 2-.2" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M10.5 25.4c1.3 1.1 2.4 2 3.4 2.6" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </div><small>Mercado Livre</small>
+        </div>
+        <div class="loja">
+          <div class="bolha">
+            <svg viewBox="0 0 48 48" role="img" aria-label="TikTok Shop">
+              <rect width="48" height="48" fill="#010101"/>
+              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#25F4EE" transform="translate(-1.8 1.4)"/>
+              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#FE2C55" transform="translate(1.4 -.6)"/>
+              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#fff"/>
+            </svg>
+          </div><small>TikTok Shop</small>
+        </div>
+        <div class="loja">
+          <div class="bolha">
+            <svg viewBox="0 0 48 48" role="img" aria-label="E muito mais">
+              <rect width="48" height="48" fill="#DE1F1A"/>
+              <path d="M11 14h4.2l3 14.4h14.1l2.7-9.6H18.4" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="20.5" cy="34" r="2.6" fill="#fff"/>
+              <circle cx="30.5" cy="34" r="2.6" fill="#fff"/>
+            </svg>
+          </div><small>E muito mais</small>
+        </div>
       </div>
 
       <div class="beneficios">
