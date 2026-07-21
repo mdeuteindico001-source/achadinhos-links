@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Achadinhos — promoções da Shopee todo dia</title>
-<meta name="description" content="Entre no canal e receba as melhores promoções da Shopee todos os dias, antes de acabar.">
-<meta property="og:title" content="Achadinhos — promoções da Shopee todo dia">
-<meta property="og:description" content="Receba as melhores ofertas com cupom, todo dia, de graça.">
+<title>Múltiplas Ofertas — as melhores ofertas em um só lugar</title>
+<meta name="description" content="Shopee, Mercado Livre, TikTok Shop e muito mais. Descontos exclusivos todos os dias, direto no seu WhatsApp.">
+<meta property="og:title" content="Múltiplas Ofertas — as melhores ofertas em um só lugar">
+<meta property="og:description" content="Descontos exclusivos todos os dias. Corre que é por tempo limitado!">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#DE1F1A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
 
 <!-- ============================================================
@@ -25,8 +26,8 @@ const CONFIG = {
 
   // Grupos — o primeiro com "cheio: false" é o que aparece na página
   grupos: [
-    { nome: 'Achadinhos • Grupo 1', link: 'https://chat.whatsapp.com/COLE_AQUI', cheio: false },
-    // { nome: 'Achadinhos • Grupo 2', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
+    { nome: 'Múltiplas Ofertas • Grupo 1', link: 'https://chat.whatsapp.com/LPj7N26xYNxKJ44WrhPBTz', cheio: false },
+    // { nome: 'Múltiplas Ofertas • Grupo 2', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
   ],
 
   // Prova social exibida na página (deixe '' para esconder)
@@ -39,77 +40,198 @@ const CONFIG = {
 
 <style>
   :root {
+    --vermelho: #DE1F1A;
+    --vermelho-fundo: #B31510;
+    --amarelo: #FFC709;
+    --amarelo-fundo: #C88A00;
+    --preto: #14110F;
+    --branco: #FFFFFF;
+    --creme: #FFF6E8;
     --zap: #1FA855;
-    --preco: #D92B4B;
-    --tinta: #14181D;
-    --suave: #667085;
-    --fundo: #F4F6F8;
-    --papel: #FFFFFF;
-    --borda: #E3E7EC;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --tinta:#EDEFF2; --suave:#98A2B3; --fundo:#0F1317; --papel:#181D23; --borda:#272E37; }
+    --zap-fundo: #14713A;
+    --cinza: #6B6560;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
   body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: var(--fundo); color: var(--tinta);
-    min-height: 100dvh; display: flex; align-items: center; justify-content: center;
-    padding: 24px 18px calc(24px + env(safe-area-inset-bottom));
-    line-height: 1.5;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: var(--vermelho);
+    min-height: 100dvh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px 14px calc(20px + env(safe-area-inset-bottom));
+    color: var(--preto);
+    overflow-x: hidden;
   }
-  .cartao {
-    background: var(--papel); width: 100%; max-width: 420px;
-    border: 1px solid var(--borda); border-radius: 18px;
-    padding: 30px 24px 26px; text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,.07);
-    display: flex; flex-direction: column; gap: 18px;
+
+  /* fundo: branco ao centro com ondas vermelha e amarela nos cantos */
+  .palco {
+    position: relative; width: 100%; max-width: 430px;
+    background: var(--branco);
+    border-radius: 26px; overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    isolation: isolate;
   }
-  .selo {
-    align-self: center; background: var(--preco); color: #fff;
-    font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    padding: 6px 14px; border-radius: 100px;
+  .onda { position: absolute; z-index: 0; pointer-events: none; }
+  .onda-topo {
+    top: -110px; left: -70px; width: 260px; height: 260px;
+    background: var(--amarelo); border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
+    transform: rotate(-18deg);
   }
-  h1 { font-size: 1.65rem; line-height: 1.2; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
-  h1 em { font-style: normal; color: var(--preco); }
-  .sub { color: var(--suave); font-size: 1rem; text-wrap: balance; }
-  .lista { text-align: left; display: flex; flex-direction: column; gap: 9px; margin: 2px 0; }
-  .item { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
-  .item span:first-child { flex-shrink: 0; }
-  .acoes { display: flex; flex-direction: column; gap: 10px; }
+  .onda-topo-2 {
+    top: -60px; right: -90px; width: 220px; height: 200px;
+    background: var(--vermelho); border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+  }
+  .onda-base {
+    bottom: -120px; right: -80px; width: 280px; height: 250px;
+    background: var(--amarelo); border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
+    transform: rotate(12deg);
+  }
+  .onda-base-2 {
+    bottom: -90px; left: -70px; width: 210px; height: 190px;
+    background: var(--vermelho); border-radius: 45% 55% 55% 45% / 50% 50% 50% 50%;
+  }
+  /* bolinhas decorativas iguais às da arte */
+  .pontos {
+    position: absolute; z-index: 0; width: 56px; height: 56px; opacity: .5;
+    background-image: radial-gradient(var(--amarelo) 2.2px, transparent 2.3px);
+    background-size: 12px 12px;
+  }
+  .pontos-a { top: 16px; right: 18px; }
+  .pontos-b { bottom: 16px; left: 18px; }
+
+  .conteudo {
+    position: relative; z-index: 1;
+    padding: 30px 22px 24px;
+    display: flex; flex-direction: column; gap: 16px; text-align: center;
+  }
+
+  /* ---------- lockup do logo ---------- */
+  .selo-pct {
+    align-self: center;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--amarelo); color: var(--preto);
+    display: grid; place-items: center;
+    font-size: 1.6rem; font-weight: 900;
+    border: 3px solid var(--preto);
+    box-shadow: 0 4px 0 var(--preto);
+    margin-bottom: 2px;
+  }
+  .placa {
+    align-self: center;
+    background: var(--preto); color: var(--branco);
+    font-size: clamp(1.15rem, 5.6vw, 1.5rem); font-weight: 900;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 7px 20px; border-radius: 9px;
+    transform: rotate(-1.5deg);
+  }
+  .titulo-3d {
+    font-size: clamp(2.7rem, 13vw, 3.9rem); font-weight: 900;
+    letter-spacing: -.02em; text-transform: uppercase; line-height: .92;
+    color: var(--amarelo);
+    -webkit-text-stroke: 3px var(--preto);
+    paint-order: stroke fill;
+    text-shadow: 0 4px 0 var(--amarelo-fundo), 0 7px 0 var(--preto);
+    transform: rotate(-1.5deg);
+    margin: 2px 0 6px;
+  }
+  .faixa-sub {
+    align-self: center;
+    background: var(--preto); color: var(--branco);
+    font-size: .8rem; font-weight: 800; letter-spacing: .01em;
+    padding: 8px 16px; border-radius: 7px; text-wrap: balance;
+  }
+  .faixa-sub em { font-style: normal; color: var(--amarelo); }
+
+  /* ---------- marketplaces ---------- */
+  .lojas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+  .loja { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .loja .bolha {
+    width: 54px; height: 54px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 1.45rem;
+    border: 3px solid var(--preto); box-shadow: 0 3px 0 var(--preto);
+  }
+  .loja .bolha.a { background: var(--vermelho); }
+  .loja .bolha.b { background: var(--amarelo); }
+  .loja .bolha.c { background: var(--preto); }
+  .loja .bolha.d { background: var(--vermelho); }
+  .loja small {
+    font-size: .6rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: .02em; line-height: 1.15; color: var(--preto);
+  }
+
+  /* ---------- benefícios ---------- */
+  .beneficios {
+    background: var(--amarelo); border: 3px solid var(--preto); border-radius: 13px;
+    box-shadow: 0 4px 0 var(--preto);
+    padding: 11px 12px; display: flex; flex-direction: column; gap: 8px;
+    margin-top: 4px;
+  }
+  .beneficio {
+    display: flex; align-items: center; gap: 9px; text-align: left;
+    font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .01em;
+  }
+  .beneficio span:first-child { font-size: 1rem; flex-shrink: 0; }
+
+  /* ---------- ações ---------- */
+  .acoes { display: flex; flex-direction: column; gap: 11px; margin-top: 6px; }
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 9px;
-    padding: 17px 18px; border-radius: 13px; text-decoration: none;
-    font-size: 1.06rem; font-weight: 800; border: 2px solid transparent;
-    transition: transform .12s ease, filter .12s ease;
+    padding: 16px 16px; border-radius: 13px; text-decoration: none;
+    font-size: 1.05rem; font-weight: 900; text-transform: uppercase; letter-spacing: .01em;
+    border: 3px solid var(--preto);
+    transition: transform .1s ease, box-shadow .1s ease;
   }
-  .btn:active { transform: scale(.975); }
-  .btn-zap { background: var(--zap); color: #fff; box-shadow: 0 5px 18px rgba(31,168,85,.32); }
-  .btn-zap:hover { filter: brightness(1.06); }
-  .btn-sec { background: transparent; color: var(--tinta); border-color: var(--borda); font-size: .98rem; padding: 14px; }
-  .btn-sec:hover { border-color: var(--zap); color: var(--zap); }
-  .prova { font-size: .87rem; color: var(--suave); }
-  .prova b { color: var(--tinta); }
-  .rodape { font-size: .76rem; color: var(--suave); border-top: 1px solid var(--borda); padding-top: 14px; }
-  .esgotado { font-size: .9rem; color: var(--suave); background: var(--fundo); border-radius: 10px; padding: 14px; }
+  .btn-zap { background: var(--zap); color: var(--branco); box-shadow: 0 5px 0 var(--zap-fundo); }
+  .btn-amarelo { background: var(--amarelo); color: var(--preto); box-shadow: 0 5px 0 var(--amarelo-fundo); }
+  .btn-branco { background: var(--branco); color: var(--preto); box-shadow: 0 5px 0 var(--preto); font-size: .93rem; padding: 13px; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 currentColor; }
+  .btn:focus-visible { outline: 3px solid var(--vermelho); outline-offset: 3px; }
+
+  .prova { font-size: .82rem; font-weight: 700; color: var(--preto); }
+  .prova b { background: var(--amarelo); padding: 1px 6px; border-radius: 4px; }
+  .esgotado {
+    background: var(--creme); border: 3px dashed var(--preto); border-radius: 13px;
+    padding: 15px; font-size: .88rem; font-weight: 700;
+  }
+  .rodape {
+    font-size: .68rem; color: var(--cinza); line-height: 1.45;
+    border-top: 2px solid #EFE9E2; padding-top: 12px; margin-top: 2px;
+  }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
 <body>
-  <main class="cartao">
-    <span class="selo">🏷️ Achadinhos</span>
-    <h1>As melhores promoções da Shopee, <em>antes de acabar</em></h1>
-    <p class="sub">Todo dia eu garimpo e mando só o que vale a pena — com cupom e link direto.</p>
+  <main class="palco">
+    <div class="onda onda-topo"></div>
+    <div class="onda onda-topo-2"></div>
+    <div class="onda onda-base"></div>
+    <div class="onda onda-base-2"></div>
+    <div class="pontos pontos-a"></div>
+    <div class="pontos pontos-b"></div>
 
-    <div class="lista">
-      <div class="item"><span>🔥</span><span>Ofertas com desconto de verdade, não é preço inflado</span></div>
-      <div class="item"><span>⚡</span><span>Você recebe antes do estoque acabar</span></div>
-      <div class="item"><span>🆓</span><span>De graça, e você sai quando quiser</span></div>
+    <div class="conteudo">
+      <div class="selo-pct">%</div>
+      <div class="placa">Múltiplas</div>
+      <h1 class="titulo-3d">Ofertas</h1>
+      <p class="faixa-sub">AS MELHORES <em>OFERTAS</em>, EM UM SÓ LUGAR!</p>
+
+      <div class="lojas">
+        <div class="loja"><div class="bolha a">🛍️</div><small>Shopee</small></div>
+        <div class="loja"><div class="bolha b">🤝</div><small>Mercado Livre</small></div>
+        <div class="loja"><div class="bolha c">🎵</div><small>TikTok Shop</small></div>
+        <div class="loja"><div class="bolha d">🛒</div><small>E muito mais</small></div>
+      </div>
+
+      <div class="beneficios">
+        <div class="beneficio"><span>🏷️</span><span>Descontos exclusivos</span></div>
+        <div class="beneficio"><span>📅</span><span>Ofertas todos os dias</span></div>
+        <div class="beneficio"><span>⚡</span><span>Corre que é por tempo limitado!</span></div>
+      </div>
+
+      <div class="acoes" id="acoes"></div>
+      <p class="prova" id="prova"></p>
+      <p class="rodape">Conteúdo gratuito, e você sai quando quiser. Podemos receber comissão de afiliado pelas compras — sem custo nenhum pra você.</p>
     </div>
-
-    <div class="acoes" id="acoes"></div>
-    <p class="prova" id="prova"></p>
-    <p class="rodape">Conteúdo gratuito. Podemos receber comissão de afiliado pelas compras — sem custo nenhum pra você.</p>
   </main>
 
 <script>
@@ -138,8 +260,8 @@ const CONFIG = {
     html += '<a class="btn btn-zap" data-tipo="canal" href="' + CONFIG.canal.link + '">📢 Entrar no canal</a>';
   }
   if (vaga) {
-    html += '<a class="btn ' + (temCanal ? 'btn-sec' : 'btn-zap') + '" data-tipo="grupo" href="' + vaga.link + '">'
-         + (temCanal ? '👥 Prefiro o grupo com conversa' : '👥 Entrar no grupo') + '</a>';
+    html += '<a class="btn ' + (temCanal ? 'btn-branco' : 'btn-zap') + '" data-tipo="grupo" href="' + vaga.link + '">'
+         + (temCanal ? '👥 Prefiro o grupo' : '👥 Entrar no grupo grátis') + '</a>';
   }
   if (!html) {
     html = '<p class="esgotado">⏳ Estamos abrindo uma turma nova. Volte em alguns minutos!</p>';
@@ -148,7 +270,7 @@ const CONFIG = {
 
   // ---------- Prova social ----------
   if (CONFIG.membros) {
-    document.getElementById('prova').innerHTML = '👥 Já somos <b>' + CONFIG.membros + '</b> caçando promoção juntos';
+    document.getElementById('prova').innerHTML = '👥 Já somos <b>' + CONFIG.membros + '</b> caçando oferta juntos';
   }
 
   // ---------- Eventos de clique ----------

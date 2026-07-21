@@ -1,7 +1,10 @@
-# Achadinhos — página de entrada
+# Múltiplas Ofertas — página de entrada
 
 Página estática que recebe o tráfego (bio do Instagram/TikTok e anúncios) e manda pro
 canal ou grupo do WhatsApp. Hospedada de graça no GitHub Pages.
+
+Identidade visual seguindo a arte do grupo: vermelho, amarelo e preto, tipografia 3D
+e selos de marketplace (Shopee, Mercado Livre, TikTok Shop e mais).
 
 > ⚠️ **Este repositório é PÚBLICO.** Nunca coloque aqui `.env`, credenciais, token ou
 > qualquer coisa do app Shopee Automático. Só links de convite e a página.
@@ -22,8 +25,8 @@ Tudo fica no bloco `CONFIG`, no topo do `index.html`:
 const CONFIG = {
   canal:   { link: 'https://whatsapp.com/channel/SEU_CODIGO', ativo: true },
   grupos:  [
-    { nome: 'Achadinhos • Grupo 1', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
-    { nome: 'Achadinhos • Grupo 2', link: 'https://chat.whatsapp.com/YYYY', cheio: false },
+    { nome: 'Múltiplas Ofertas • Grupo 1', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
+    { nome: 'Múltiplas Ofertas • Grupo 2', link: 'https://chat.whatsapp.com/YYYY', cheio: false },
   ],
   membros: '2.400',        // prova social; '' esconde
   pixelId: '1234567890'    // Pixel da Meta; '' não carrega nada
