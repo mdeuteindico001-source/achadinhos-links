@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrando no Grupo VIP…</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Múltiplas Ofertas — Grupo VIP">
+<meta property="og:description" content="As melhores ofertas da Shopee, Mercado Livre e TikTok Shop todos os dias.">
+<meta property="og:image" content="../capa.jpg">
+<meta name="theme-color" content="#D1020C">
+<script src="../config.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #C40106; color: #fff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    min-height: 100dvh; display: grid; place-items: center; padding: 24px; text-align: center;
+  }
+  .caixa { display: flex; flex-direction: column; gap: 14px; align-items: center; max-width: 340px; }
+  .rodinha {
+    width: 42px; height: 42px; border: 5px solid rgba(255,255,255,.3);
+    border-top-color: #fff; border-radius: 50%; animation: girar .8s linear infinite;
+  }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  h1 { font-size: 1.25rem; font-weight: 800; }
+  p { font-size: .95rem; opacity: .92; }
+  a.manual {
+    margin-top: 6px; background: #fff; color: #C40106; text-decoration: none;
+    font-weight: 800; padding: 13px 22px; border-radius: 11px; font-size: 1rem;
+  }
+  @media (prefers-reduced-motion: reduce) { .rodinha { animation: none; } }
+</style>
+</head>
+<body>
+  <div class="caixa">
+    <div class="rodinha" id="rodinha"></div>
+    <h1 id="titulo">Abrindo o WhatsApp…</h1>
+    <p id="texto">Se não abrir sozinho, toque no botão abaixo.</p>
+    <a class="manual" id="manual" href="../">Continuar</a>
+  </div>
+<script>
+(function () {
+  var destino = destinoAtual();
+  var manual = document.getElementById('manual');
+
+  if (!destino) {
+    document.getElementById('rodinha').style.display = 'none';
+    document.getElementById('titulo').textContent = '⏳ Turma nova a caminho';
+    document.getElementById('texto').textContent = 'Estamos abrindo um grupo novo. Volte em alguns minutos!';
+    manual.textContent = 'Ver a página';
+    manual.href = '../';
+    return;
+  }
+
+  manual.href = destino.url;
+  manual.textContent = destino.rotulo;
+
+  if (CONFIG.pixelId) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.pixelId);
+    fbq('track', 'PageView');
+    fbq('track', 'Lead');
+  }
+
+  // redireciona sem sujar o histórico (o botão Voltar não fica preso aqui)
+  setTimeout(function () { location.replace(destino.url); }, 350);
+})();
+</script>
+</body>
+</html>

@@ -6,12 +6,21 @@ canal ou grupo do WhatsApp. Hospedada de graça no GitHub Pages.
 A página **é a arte** (`capa.jpg`), com um botão transparente posicionado exatamente sobre
 o CTA verde "ENTRAR NO GRUPO VIP".
 
+## Links
+
+| Endereço | Para que serve |
+|---|---|
+| `/` | Página completa com a arte. Use nos **anúncios** (tem o Pixel). |
+| `/vip` | Vai direto pro WhatsApp, sem passar pela arte. Use em **bio, story e mensagem**. |
+
+Os dois leem o mesmo `config.js`, então trocar o grupo lá atualiza tudo de uma vez.
+
 ## Trocar a arte
 
 1. Substitua `capa.jpg` pela nova imagem.
-2. Ajuste `BOTAO` no `index.html` com a posição do CTA na nova arte, em % da imagem:
+2. Ajuste `BOTAO` no `config.js` com a posição do CTA na nova arte, em % da imagem:
    ```js
-   const BOTAO = { left: 14.35, top: 88.03, width: 66.67, height: 4.94 };
+   const BOTAO = { left: 15.82, top: 85.94, width: 65.92, height: 6.64 };
    ```
 3. Para conferir o encaixe, ponha `debug: true` no `CONFIG` — o botão fica azul e visível.
    Depois volte para `false`.
@@ -32,7 +41,7 @@ o CTA verde "ENTRAR NO GRUPO VIP".
 
 ## Como configurar
 
-Tudo fica no bloco `CONFIG`, no topo do `index.html`:
+Tudo fica no arquivo `config.js` (usado pela página e pelos links curtos):
 
 ```js
 const CONFIG = {

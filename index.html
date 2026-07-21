@@ -11,74 +11,58 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#D1020C">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
-
-<!-- ============================================================
-     CONFIGURAÇÃO — é só aqui que você mexe no dia a dia.
-     Quando um grupo lotar (1.024), marque cheio: true.
-     A página passa a oferecer o próximo automaticamente.
-     ============================================================ -->
-<script>
-const CONFIG = {
-  // Canal do WhatsApp — se ativo, vira o destino do botão
-  canal: {
-    link: 'https://whatsapp.com/channel/COLE_O_CODIGO_AQUI',
-    ativo: false
-  },
-
-  // Grupos — o primeiro com "cheio: false" é o que o botão abre
-  grupos: [
-    { nome: 'Múltiplas Ofertas • Grupo 1', link: 'https://chat.whatsapp.com/LPj7N26xYNxKJ44WrhPBTz', cheio: false },
-    // { nome: 'Múltiplas Ofertas • Grupo 2', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
-  ],
-
-  // ID do Pixel da Meta (deixe '' se ainda não tiver)
-  pixelId: '',
-
-  // true = mostra o contorno do botão, para conferir o posicionamento
-  debug: false
-};
-
-/* Posição do botão sobre a arte (medida na imagem 864x1821).
-   Só mexa aqui se trocar a imagem da capa. */
-const BOTAO = { left: 14.35, top: 88.03, width: 66.67, height: 4.94 };
-</script>
+<script src="config.js"></script>
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { background: #C40106; }
   body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    display: flex; justify-content: center;
     min-height: 100dvh;
+    display: grid; place-items: center;
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
-  .pagina { position: relative; width: 100%; max-width: 480px; }
+
+  /* A arte tem proporção 1:1.5. Para caber inteira na altura da tela,
+     a largura precisa ser no máximo (altura / 1.5) = 66.6dvh. */
+  .pagina {
+    position: relative;
+    width: min(100%, 62dvh, 440px);
+  }
   .capa { width: 100%; height: auto; display: block; }
 
-  /* botão invisível posicionado exatamente sobre o CTA verde da arte */
+  /* botão transparente posicionado exatamente sobre o CTA verde da arte */
   .botao-grupo {
     position: absolute;
     left: var(--bl); top: var(--bt); width: var(--bw); height: var(--bh);
-    border-radius: 12px;
-    display: block; text-indent: -9999px; overflow: hidden;
+    border-radius: 14px; display: block;
     transition: transform .12s ease, box-shadow .12s ease;
   }
-  .botao-grupo:hover { transform: scale(1.02); box-shadow: 0 0 0 4px rgba(255,255,255,.45); }
+  /* estende a área clicável para no mínimo 46px de altura, sem mudar o visual
+     (em telas pequenas o botão da arte fica com ~37px, abaixo do confortável) */
+  .botao-grupo::after {
+    content: ''; position: absolute; left: 0; right: 0;
+    top: 50%; transform: translateY(-50%);
+    height: max(100%, 46px);
+  }
+  .botao-grupo:hover { transform: scale(1.02); box-shadow: 0 0 0 4px rgba(255,255,255,.5); }
   .botao-grupo:active { transform: scale(.98); }
   .botao-grupo:focus-visible { outline: 4px solid #fff; outline-offset: 3px; }
   .debug .botao-grupo { background: rgba(0,132,255,.45); box-shadow: 0 0 0 3px #0084FF; }
+  .debug .botao-grupo::after { background: rgba(255,193,7,.35); }
 
-  /* aviso caso não haja grupo com vaga */
   .aviso {
-    position: absolute; left: 6%; width: 88%;
-    top: 86%;
+    position: absolute; left: 6%; width: 88%; top: 84%;
     background: #fff; border: 3px solid #14110F; border-radius: 14px;
     padding: 14px; text-align: center; font-weight: 800; font-size: .95rem; color: #14110F;
   }
+  @media (prefers-reduced-motion: reduce) { .botao-grupo { transition: none; } }
 </style>
 </head>
 <body>
   <main class="pagina" id="pagina">
-    <img class="capa" src="capa.jpg" alt="Múltiplas Ofertas — Shopee, Mercado Livre, TikTok Shop e muito mais. Ofertas atualizadas todos os dias. Entre agora no Grupo VIP." width="864" height="1821">
+    <img class="capa" src="capa.jpg" width="1024" height="1536"
+         alt="Múltiplas Ofertas — Shopee, Mercado Livre, TikTok Shop e muito mais. Ofertas atualizadas todos os dias. Entre agora no Grupo VIP.">
   </main>
 
 <script>
@@ -97,20 +81,14 @@ const BOTAO = { left: 14.35, top: 88.03, width: 66.67, height: 4.94 };
   var pagina = document.getElementById('pagina');
   if (CONFIG.debug) pagina.classList.add('debug');
 
-  // ---------- Descobre o destino ----------
-  var temCanal = CONFIG.canal.ativo && CONFIG.canal.link.indexOf('COLE_O_CODIGO_AQUI') === -1;
-  var vaga = CONFIG.grupos.filter(function (g) {
-    return !g.cheio && g.link.indexOf('COLE_AQUI') === -1;
-  })[0];
-  var destino = temCanal ? CONFIG.canal.link : (vaga ? vaga.link : null);
-
+  var destino = destinoAtual();
   if (destino) {
     var a = document.createElement('a');
     a.className = 'botao-grupo';
-    a.href = destino;
+    a.href = destino.url;
     a.rel = 'noopener';
-    a.textContent = temCanal ? 'Entrar no canal' : 'Entrar no Grupo VIP';
-    a.setAttribute('aria-label', a.textContent);
+    // sem texto visível: o nome acessível vem do aria-label (a arte já mostra o rótulo)
+    a.setAttribute('aria-label', destino.rotulo);
     a.style.setProperty('--bl', BOTAO.left + '%');
     a.style.setProperty('--bt', BOTAO.top + '%');
     a.style.setProperty('--bw', BOTAO.width + '%');
