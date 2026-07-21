@@ -6,15 +6,11 @@
 <title>Múltiplas Ofertas — as melhores ofertas em um só lugar</title>
 <meta name="description" content="Shopee, Mercado Livre, TikTok Shop e muito mais. Descontos exclusivos todos os dias, direto no seu WhatsApp.">
 <meta property="og:title" content="Múltiplas Ofertas — as melhores ofertas em um só lugar">
-<meta property="og:description" content="Descontos exclusivos todos os dias. Corre que é por tempo limitado!">
+<meta property="og:description" content="Entre no Grupo VIP e receba as melhores ofertas antes de todo mundo.">
+<meta property="og:image" content="capa.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#DE1F1A">
+<meta name="theme-color" content="#D1020C">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
-
-<!-- Fontes: Baloo 2 (display pesada arredondada) + Nunito (texto) — batem com a arte -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 
 <!-- ============================================================
      CONFIGURAÇÃO — é só aqui que você mexe no dia a dia.
@@ -23,260 +19,66 @@
      ============================================================ -->
 <script>
 const CONFIG = {
-  // Canal do WhatsApp — destino principal (não tem limite de membros)
+  // Canal do WhatsApp — se ativo, vira o destino do botão
   canal: {
     link: 'https://whatsapp.com/channel/COLE_O_CODIGO_AQUI',
-    ativo: false   // troque para true depois de colar o link do canal
+    ativo: false
   },
 
-  // Grupos — o primeiro com "cheio: false" é o que aparece na página
+  // Grupos — o primeiro com "cheio: false" é o que o botão abre
   grupos: [
     { nome: 'Múltiplas Ofertas • Grupo 1', link: 'https://chat.whatsapp.com/LPj7N26xYNxKJ44WrhPBTz', cheio: false },
     // { nome: 'Múltiplas Ofertas • Grupo 2', link: 'https://chat.whatsapp.com/XXXX', cheio: false },
   ],
 
-  // Prova social exibida na página (deixe '' para esconder)
-  membros: '',          // ex.: '2.400'
-
   // ID do Pixel da Meta (deixe '' se ainda não tiver)
-  pixelId: ''
+  pixelId: '',
+
+  // true = mostra o contorno do botão, para conferir o posicionamento
+  debug: false
 };
+
+/* Posição do botão sobre a arte (medida na imagem 864x1821).
+   Só mexa aqui se trocar a imagem da capa. */
+const BOTAO = { left: 14.35, top: 88.03, width: 66.67, height: 4.94 };
 </script>
 
 <style>
-  :root {
-    --vermelho: #DE1F1A;
-    --vermelho-fundo: #B31510;
-    --amarelo: #FFC709;
-    --amarelo-fundo: #C88A00;
-    --preto: #14110F;
-    --branco: #FFFFFF;
-    --creme: #FFF6E8;
-    --zap: #1FA855;
-    --zap-fundo: #14713A;
-    --cinza: #4A443F;
-    --display: "Baloo 2", system-ui, sans-serif;
-    --texto: "Nunito", system-ui, sans-serif;
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
+  html, body { background: #C40106; }
   body {
-    font-family: var(--texto);
-    background: var(--vermelho);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex; justify-content: center;
     min-height: 100dvh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px 14px calc(20px + env(safe-area-inset-bottom));
-    color: var(--preto);
-    overflow-x: hidden;
   }
+  .pagina { position: relative; width: 100%; max-width: 480px; }
+  .capa { width: 100%; height: auto; display: block; }
 
-  /* fundo: branco ao centro com ondas vermelha e amarela nos cantos */
-  .palco {
-    position: relative; width: 100%; max-width: 430px;
-    background: var(--branco);
-    border-radius: 26px; overflow: hidden;
-    box-shadow: 0 18px 50px rgba(0,0,0,.35);
-    isolation: isolate;
+  /* botão invisível posicionado exatamente sobre o CTA verde da arte */
+  .botao-grupo {
+    position: absolute;
+    left: var(--bl); top: var(--bt); width: var(--bw); height: var(--bh);
+    border-radius: 12px;
+    display: block; text-indent: -9999px; overflow: hidden;
+    transition: transform .12s ease, box-shadow .12s ease;
   }
-  .onda { position: absolute; z-index: 0; pointer-events: none; }
-  .onda-topo {
-    top: -110px; left: -70px; width: 260px; height: 260px;
-    background: var(--amarelo); border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-    transform: rotate(-18deg);
-  }
-  .onda-topo-2 {
-    top: -60px; right: -90px; width: 220px; height: 200px;
-    background: var(--vermelho); border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
-  }
-  .onda-base {
-    bottom: -120px; right: -80px; width: 280px; height: 250px;
-    background: var(--amarelo); border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
-    transform: rotate(12deg);
-  }
-  .onda-base-2 {
-    bottom: -90px; left: -70px; width: 210px; height: 190px;
-    background: var(--vermelho); border-radius: 45% 55% 55% 45% / 50% 50% 50% 50%;
-  }
-  /* bolinhas decorativas iguais às da arte */
-  .pontos {
-    position: absolute; z-index: 0; width: 56px; height: 56px; opacity: .5;
-    background-image: radial-gradient(var(--amarelo) 2.2px, transparent 2.3px);
-    background-size: 12px 12px;
-  }
-  .pontos-a { top: 16px; right: 18px; }
-  .pontos-b { bottom: 16px; left: 18px; }
+  .botao-grupo:hover { transform: scale(1.02); box-shadow: 0 0 0 4px rgba(255,255,255,.45); }
+  .botao-grupo:active { transform: scale(.98); }
+  .botao-grupo:focus-visible { outline: 4px solid #fff; outline-offset: 3px; }
+  .debug .botao-grupo { background: rgba(0,132,255,.45); box-shadow: 0 0 0 3px #0084FF; }
 
-  .conteudo {
-    position: relative; z-index: 1;
-    padding: 30px 22px 24px;
-    display: flex; flex-direction: column; gap: 16px; text-align: center;
+  /* aviso caso não haja grupo com vaga */
+  .aviso {
+    position: absolute; left: 6%; width: 88%;
+    top: 86%;
+    background: #fff; border: 3px solid #14110F; border-radius: 14px;
+    padding: 14px; text-align: center; font-weight: 800; font-size: .95rem; color: #14110F;
   }
-
-  /* ---------- lockup do logo ---------- */
-  .selo-pct {
-    align-self: center;
-    width: 52px; height: 52px; border-radius: 50%;
-    background: var(--amarelo); color: var(--preto);
-    display: grid; place-items: center;
-    font-family: var(--display); font-size: 1.7rem; font-weight: 800;
-    border: 3px solid var(--preto);
-    box-shadow: 0 4px 0 var(--preto);
-    margin-bottom: 2px;
-  }
-  .placa {
-    align-self: center;
-    background: var(--preto); color: var(--branco);
-    font-family: var(--display);
-    font-size: clamp(1.2rem, 5.8vw, 1.55rem); font-weight: 800;
-    letter-spacing: .06em; text-transform: uppercase;
-    padding: 6px 20px 8px; border-radius: 9px;
-    transform: rotate(-1.5deg);
-  }
-  .titulo-3d {
-    font-family: var(--display);
-    font-size: clamp(2.8rem, 13.5vw, 4.1rem); font-weight: 800;
-    letter-spacing: -.01em; text-transform: uppercase; line-height: .95;
-    color: var(--amarelo);
-    -webkit-text-stroke: 3px var(--preto);
-    paint-order: stroke fill;
-    text-shadow: 0 4px 0 var(--amarelo-fundo), 0 7px 0 var(--preto);
-    transform: rotate(-1.5deg);
-    margin: 2px 0 8px;
-  }
-  .faixa-sub {
-    align-self: center;
-    background: var(--preto); color: var(--branco);
-    font-size: .82rem; font-weight: 800; letter-spacing: .01em;
-    padding: 9px 16px; border-radius: 7px; text-wrap: balance;
-  }
-  .faixa-sub em { font-style: normal; color: var(--amarelo); }
-
-  /* ---------- marketplaces ---------- */
-  .lojas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
-  .loja { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .loja .bolha {
-    width: 56px; height: 56px; border-radius: 50%;
-    border: 3px solid var(--preto); box-shadow: 0 3px 0 var(--preto);
-    overflow: hidden; background: var(--branco);
-  }
-  .loja .bolha svg { width: 100%; height: 100%; display: block; }
-  .loja small {
-    font-size: .61rem; font-weight: 900; text-transform: uppercase;
-    letter-spacing: .01em; line-height: 1.15; color: var(--preto);
-  }
-
-  /* ---------- benefícios ---------- */
-  .beneficios {
-    background: var(--amarelo); border: 3px solid var(--preto); border-radius: 13px;
-    box-shadow: 0 4px 0 var(--preto);
-    padding: 11px 12px; display: flex; flex-direction: column; gap: 8px;
-    margin-top: 4px;
-  }
-  .beneficio {
-    display: flex; align-items: center; gap: 9px; text-align: left;
-    font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .01em;
-  }
-  .beneficio span:first-child { font-size: 1rem; flex-shrink: 0; }
-
-  /* ---------- ações ---------- */
-  .acoes { display: flex; flex-direction: column; gap: 11px; margin-top: 6px; }
-  .btn {
-    display: flex; align-items: center; justify-content: center; gap: 9px;
-    padding: 15px 16px 17px; border-radius: 13px; text-decoration: none;
-    font-family: var(--display);
-    font-size: 1.15rem; font-weight: 800; text-transform: uppercase; letter-spacing: .02em;
-    border: 3px solid var(--preto);
-    transition: transform .1s ease, box-shadow .1s ease;
-  }
-  .btn-zap { background: var(--zap); color: var(--branco); box-shadow: 0 5px 0 var(--zap-fundo); }
-  .btn-amarelo { background: var(--amarelo); color: var(--preto); box-shadow: 0 5px 0 var(--amarelo-fundo); }
-  .btn-branco { background: var(--branco); color: var(--preto); box-shadow: 0 5px 0 var(--preto); font-size: .93rem; padding: 13px; }
-  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 currentColor; }
-  .btn:focus-visible { outline: 3px solid var(--vermelho); outline-offset: 3px; }
-
-  .prova { font-size: .85rem; font-weight: 800; color: var(--preto); }
-  .prova b { background: var(--amarelo); padding: 1px 6px; border-radius: 4px; }
-  .esgotado {
-    background: var(--creme); border: 3px dashed var(--preto); border-radius: 13px;
-    padding: 15px; font-size: .9rem; font-weight: 800;
-  }
-  .rodape {
-    font-size: .84rem; font-weight: 600; color: var(--cinza); line-height: 1.5;
-    border-top: 2px solid #E4DED7; padding-top: 13px; margin-top: 2px;
-  }
-  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
 <body>
-  <main class="palco">
-    <div class="onda onda-topo"></div>
-    <div class="onda onda-topo-2"></div>
-    <div class="onda onda-base"></div>
-    <div class="onda onda-base-2"></div>
-    <div class="pontos pontos-a"></div>
-    <div class="pontos pontos-b"></div>
-
-    <div class="conteudo">
-      <div class="selo-pct">%</div>
-      <div class="placa">Múltiplas</div>
-      <h1 class="titulo-3d">Ofertas</h1>
-      <p class="faixa-sub">AS MELHORES <em>OFERTAS</em>, EM UM SÓ LUGAR!</p>
-
-      <div class="lojas">
-        <div class="loja">
-          <div class="bolha">
-            <svg viewBox="0 0 48 48" role="img" aria-label="Shopee">
-              <rect width="48" height="48" fill="#EE4D2D"/>
-              <path d="M17.2 20.5v-2.2a6.8 6.8 0 0 1 13.6 0v2.2" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
-              <path d="M11.6 20.5h24.8l-1.9 15.1a3 3 0 0 1-3 2.6H16.5a3 3 0 0 1-3-2.6z" fill="#fff"/>
-              <path d="M27.4 26.6c-1-.8-2.2-1.2-3.5-1.2-1.9 0-3.3 1-3.3 2.5 0 1.3 1 2 2.9 2.6 2.3.7 3.9 1.6 3.9 3.6 0 1.9-1.7 3.2-4.1 3.2-1.6 0-3.1-.5-4.2-1.4" fill="none" stroke="#EE4D2D" stroke-width="2.1" stroke-linecap="round"/>
-            </svg>
-          </div><small>Shopee</small>
-        </div>
-        <div class="loja">
-          <div class="bolha">
-            <svg viewBox="0 0 48 48" role="img" aria-label="Mercado Livre">
-              <rect width="48" height="48" fill="#FFE600"/>
-              <path d="M9 26c3-1.5 5.2-3.8 7.4-5.6 2.6-2.1 5-2.1 7.6 0 2.2 1.8 4.4 4.1 7.4 5.6" fill="none" stroke="#2D3277" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M16.5 24.8c1.6 1.4 3 2.6 4.3 3.6.9.7 1.7.6 2.4-.1" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M23.2 28.3c1.3 1 2.4 1.9 3.4 2.6.9.6 1.7.5 2.3-.2" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M28.9 30.7c1 .8 1.8 1.4 2.5 1.9.8.5 1.5.4 2-.2" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M10.5 25.4c1.3 1.1 2.4 2 3.4 2.6" fill="none" stroke="#2D3277" stroke-width="2.4" stroke-linecap="round"/>
-            </svg>
-          </div><small>Mercado Livre</small>
-        </div>
-        <div class="loja">
-          <div class="bolha">
-            <svg viewBox="0 0 48 48" role="img" aria-label="TikTok Shop">
-              <rect width="48" height="48" fill="#010101"/>
-              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#25F4EE" transform="translate(-1.8 1.4)"/>
-              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#FE2C55" transform="translate(1.4 -.6)"/>
-              <path d="M30.6 12.2c1 1.8 2.6 3.1 4.6 3.6v4.4c-2.1-.1-4.1-.8-5.8-2v8.6a8.6 8.6 0 1 1-7.4-8.5v4.6a4.1 4.1 0 1 0 2.9 3.9V12.2z" fill="#fff"/>
-            </svg>
-          </div><small>TikTok Shop</small>
-        </div>
-        <div class="loja">
-          <div class="bolha">
-            <svg viewBox="0 0 48 48" role="img" aria-label="E muito mais">
-              <rect width="48" height="48" fill="#DE1F1A"/>
-              <path d="M11 14h4.2l3 14.4h14.1l2.7-9.6H18.4" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="20.5" cy="34" r="2.6" fill="#fff"/>
-              <circle cx="30.5" cy="34" r="2.6" fill="#fff"/>
-            </svg>
-          </div><small>E muito mais</small>
-        </div>
-      </div>
-
-      <div class="beneficios">
-        <div class="beneficio"><span>🏷️</span><span>Descontos exclusivos</span></div>
-        <div class="beneficio"><span>📅</span><span>Ofertas todos os dias</span></div>
-        <div class="beneficio"><span>⚡</span><span>Corre que é por tempo limitado!</span></div>
-      </div>
-
-      <div class="acoes" id="acoes"></div>
-      <p class="prova" id="prova"></p>
-      <p class="rodape">Conteúdo gratuito, e você sai quando quiser. Podemos receber comissão de afiliado pelas compras — sem custo nenhum pra você.</p>
-    </div>
+  <main class="pagina" id="pagina">
+    <img class="capa" src="capa.jpg" alt="Múltiplas Ofertas — Shopee, Mercado Livre, TikTok Shop e muito mais. Ofertas atualizadas todos os dias. Entre agora no Grupo VIP." width="864" height="1821">
   </main>
 
 <script>
@@ -291,38 +93,38 @@ const CONFIG = {
     fbq('init', CONFIG.pixelId);
     fbq('track', 'PageView');
   }
-  var rastrear = function (evento) {
-    if (CONFIG.pixelId && window.fbq) fbq('track', evento);
-  };
 
-  // ---------- Monta os botões ----------
-  var acoes = document.getElementById('acoes');
-  var vaga = CONFIG.grupos.filter(function (g) { return !g.cheio && g.link.indexOf('COLE_AQUI') === -1; })[0];
+  var pagina = document.getElementById('pagina');
+  if (CONFIG.debug) pagina.classList.add('debug');
+
+  // ---------- Descobre o destino ----------
   var temCanal = CONFIG.canal.ativo && CONFIG.canal.link.indexOf('COLE_O_CODIGO_AQUI') === -1;
-  var html = '';
+  var vaga = CONFIG.grupos.filter(function (g) {
+    return !g.cheio && g.link.indexOf('COLE_AQUI') === -1;
+  })[0];
+  var destino = temCanal ? CONFIG.canal.link : (vaga ? vaga.link : null);
 
-  if (temCanal) {
-    html += '<a class="btn btn-zap" data-tipo="canal" href="' + CONFIG.canal.link + '">📢 Entrar no canal</a>';
+  if (destino) {
+    var a = document.createElement('a');
+    a.className = 'botao-grupo';
+    a.href = destino;
+    a.rel = 'noopener';
+    a.textContent = temCanal ? 'Entrar no canal' : 'Entrar no Grupo VIP';
+    a.setAttribute('aria-label', a.textContent);
+    a.style.setProperty('--bl', BOTAO.left + '%');
+    a.style.setProperty('--bt', BOTAO.top + '%');
+    a.style.setProperty('--bw', BOTAO.width + '%');
+    a.style.setProperty('--bh', BOTAO.height + '%');
+    a.addEventListener('click', function () {
+      if (CONFIG.pixelId && window.fbq) fbq('track', 'Lead');
+    });
+    pagina.appendChild(a);
+  } else {
+    var p = document.createElement('p');
+    p.className = 'aviso';
+    p.textContent = '⏳ Estamos abrindo uma turma nova. Volte em alguns minutos!';
+    pagina.appendChild(p);
   }
-  if (vaga) {
-    html += '<a class="btn ' + (temCanal ? 'btn-branco' : 'btn-zap') + '" data-tipo="grupo" href="' + vaga.link + '">'
-         + (temCanal ? '👥 Prefiro o grupo' : '👥 Entrar no grupo grátis') + '</a>';
-  }
-  if (!html) {
-    html = '<p class="esgotado">⏳ Estamos abrindo uma turma nova. Volte em alguns minutos!</p>';
-  }
-  acoes.innerHTML = html;
-
-  // ---------- Prova social ----------
-  if (CONFIG.membros) {
-    document.getElementById('prova').innerHTML = '👥 Já somos <b>' + CONFIG.membros + '</b> caçando oferta juntos';
-  }
-
-  // ---------- Eventos de clique ----------
-  acoes.addEventListener('click', function (e) {
-    var a = e.target.closest('a[data-tipo]');
-    if (a) rastrear('Lead');
-  });
 })();
 </script>
 </body>

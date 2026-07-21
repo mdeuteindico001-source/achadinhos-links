@@ -3,8 +3,21 @@
 Página estática que recebe o tráfego (bio do Instagram/TikTok e anúncios) e manda pro
 canal ou grupo do WhatsApp. Hospedada de graça no GitHub Pages.
 
-Identidade visual seguindo a arte do grupo: vermelho, amarelo e preto, tipografia 3D
-e selos de marketplace (Shopee, Mercado Livre, TikTok Shop e mais).
+A página **é a arte** (`capa.jpg`), com um botão transparente posicionado exatamente sobre
+o CTA verde "ENTRAR NO GRUPO VIP".
+
+## Trocar a arte
+
+1. Substitua `capa.jpg` pela nova imagem.
+2. Ajuste `BOTAO` no `index.html` com a posição do CTA na nova arte, em % da imagem:
+   ```js
+   const BOTAO = { left: 14.35, top: 88.03, width: 66.67, height: 4.94 };
+   ```
+3. Para conferir o encaixe, ponha `debug: true` no `CONFIG` — o botão fica azul e visível.
+   Depois volte para `false`.
+
+> A imagem foi salva em JPEG q90 (335 KB em vez de 1,7 MB do PNG). Tráfego de anúncio é
+> quase todo 4G — página pesada derruba conversão.
 
 > ⚠️ **Este repositório é PÚBLICO.** Nunca coloque aqui `.env`, credenciais, token ou
 > qualquer coisa do app Shopee Automático. Só links de convite e a página.
